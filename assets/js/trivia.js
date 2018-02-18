@@ -25,13 +25,15 @@ $(document).ready(function(){
             catPicked = true;
             if(e.target.id === 'comp'){
                 queryURL = compURL;
-                $('#videogame').addClass("disabled");
-                $('#videogame').attr('aria-disabled', true);
+                $('#videogame').hide();
+                // $('#videogame').addClass("disabled");
+                // $('#videogame').attr('aria-disabled', true);
             }
             else if(e.target.id === 'videogame'){
                 queryURL = vgameURL;
-                $('#comp').addClass("disabled");
-                $('#comp').attr('aria-disabled', true);
+                $('#comp').hide();
+                // $('#comp').addClass("disabled");
+                // $('#comp').attr('aria-disabled', true);
             }
             
             //If category picked, fetch 20 questions
@@ -102,6 +104,11 @@ $(document).ready(function(){
             startTimer();
             //indxNo++;
 
+        }
+        else{
+            clearInterval(setInt);
+            clearInterval(counter);
+            $()
         }
     }
 
