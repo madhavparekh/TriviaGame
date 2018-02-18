@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Trivia</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body class="m-auto">
+    <div class="jumbotron jumbotron-fluid m-auto mb-5 text-center">
+        <h2 class="display-3" >Trivia</h2>
+        <h3 class="lead">Pick your question category</h3>
+        <hr class="my-2">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" id="comp" role="button">Computer</a>
+            <a class="btn btn-primary btn-lg" id="videogame" role="button">Video Game</a>
+        </p>
+    </div>
+    <div id="puzzle" class="container-fluid-sm p-2 mt-3 text-center">
+        <div class="question-area"></div>
+        <div class="choices"></div>
+
+        <div class="row text-center justify-content-around mx-0">
+            <div class="col col-sm-2">
+                <button type="button" class="btn btn-success">
+                    <strong>
+                        Correct <span class="badge badge-light" id="correct">0</span>
+                    </strong>
+                </button>
+
+            </div>
+            <div class="col col-sm-2">
+                <button type="button" class="btn btn-warning">
+                    <strong>
+                        Missed <span class="badge badge-light" id="missed">0</span>
+                    </strong>
+                </button>
+            </div>
+            <div class="col col-sm-2">
+                <button type="button" class="btn btn-danger">
+                    <strong>
+                        Wrong <span class="badge badge-light" id="wrong">0</span>
+                    </strong>
+                </button>
+            </div>
+        </div>
+    </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="assets/js/trivia.js"></script>
+    
+</body>
+</html>
