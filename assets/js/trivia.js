@@ -1,21 +1,22 @@
 const compURL = 'https://opentdb.com/api.php?amount=20&category=18'; //computer
 const vgameURL = 'https://opentdb.com/api.php?amount=20&category=15'; //videogame
 
-var correct = 0;
-var missed = 0;
-var wrong = 0;
+var correct = 0; //counter
+var missed = 0; //counter
+var wrong = 0; //counter
 var setInt; //setInterval
 var counter; //countdown timer
 var timeLeft = 15;
 const timer = timeLeft * 1000;
-var catPicked = false;
-
-
-var correctAns = "";
+var catPicked = false; //if category picked or not
+var cat = ""; //holds cat. picked
+var correctAns = ""; //holds correct ans
 var queArray; //holds questions (api.results) array
+var round = 0; // # of games played
 
 $(document).ready(function(){
     $('#puzzle').hide();
+    $('.alert').hide();
     var queryURL = "";
     var indxNo = 0;
 
@@ -25,15 +26,13 @@ $(document).ready(function(){
             catPicked = true;
             if(e.target.id === 'comp'){
                 queryURL = compURL;
+                cat = 'Computer';
                 $('#videogame').hide();
-                // $('#videogame').addClass("disabled");
-                // $('#videogame').attr('aria-disabled', true);
             }
             else if(e.target.id === 'videogame'){
                 queryURL = vgameURL;
+                cat = 'Video Game';
                 $('#comp').hide();
-                // $('#comp').addClass("disabled");
-                // $('#comp').attr('aria-disabled', true);
             }
             
             //If category picked, fetch 20 questions
@@ -65,11 +64,11 @@ $(document).ready(function(){
         
         if(userChoice === correctAns){
             correct++;
-            $('#correct').html(correct);
+            $('.score').find('#correct').html(correct);
         }
         else{
             wrong++;
-            $('#wrong').html(wrong);
+            $('.score').find('#wrong').html(wrong);
         }
 
         resetRestartTimer();
@@ -83,12 +82,10 @@ $(document).ready(function(){
             $('.question-area').empty();
 
             //convert 
-            $('#missed').html(missed);
+            $('.score').find('#missed').html(missed);
             //push all answer choices into an array
-            //console.log("i :" +i);
             var choices = pushChoicesIntoArray(queArray[i]);
-            //console.log(choices);
-        
+            
             //display que # and que in div .question-area
             var que = $('<h4>').html('Question ' +(i + 1)+ ' : ' +queArray[i].question);
             $('.question-area').append(que).append('<hr>');
@@ -106,11 +103,18 @@ $(document).ready(function(){
 
         }
         else{
+            //if round is over, reset everything, record scores, and start new game if btn clicked
             clearInterval(setInt);
             clearInterval(counter);
-            $()
+            $('.alert').show();
+            $('.trivia').fadeTo(500, 0.4); //fades out .trivia div when round complete
+            $('.alert').alert('Game Over! Press "Start Over" to play another game');
+            $('.recHeader').append('<h4>Round '+ ++round + ' : ' +cat + ' trivia </h4>');
+            $('.score').children().clone().appendTo('.record');
+
         }
     }
+
 
     function resetRestartTimer(){
         timeLeft = 15;

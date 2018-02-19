@@ -14,7 +14,7 @@
 <body class="m-auto">
     <div class="jumbotron jumbotron-fluid m-auto mb-5 text-center">
         <h2 class="display-3" >Trivia</h2>
-        <h3 class="lead">Pick your question category</h3>
+        <h3 class="lead">Pick your trivia category</h3>
         <hr class="my-2">
         <p class="lead">
             <a class="btn btn-primary btn-lg" id="comp" role="button">Computer</a>
@@ -29,17 +29,18 @@
             <div class="counter">
                 <button type="button" class="btn btn-success m-3">
                     <strong>
-                        Time left <span class="badge badge-light" id="timeleft">15</span>
+                        Time left <span class="badge badge-light" id="timeleft"></span>
                     </strong>
                 </button>
             </div>
+            
         </div>
 
-        <div class="row text-center justify-content-around mx-0">
+        <div class="score row text-center justify-content-around mx-0">
             <div class="col col-sm-2">
                 <button type="button" class="btn btn-success">
                     <strong>
-                        Correct <span class="badge badge-light" id="correct">0</span>
+                        Correct <span class="score1 badge badge-light" id="correct">0</span>
                     </strong>
                 </button>
 
@@ -47,20 +48,31 @@
             <div class="col col-sm-2">
                 <button type="button" class="btn btn-warning">
                     <strong>
-                        Missed <span class="badge badge-light" id="missed">0</span>
+                        Missed <span class="score1 badge badge-light" id="missed">0</span>
                     </strong>
                 </button>
             </div>
             <div class="col col-sm-2">
                 <button type="button" class="btn btn-danger">
                     <strong>
-                        Wrong <span class="badge badge-light" id="wrong">0</span>
+                        Wrong <span class="score1 badge badge-light" id="wrong">0</span>
                     </strong>
                 </button>
             </div>
         </div>
+        <hr>
+        <div class="recHeader row text-center justify-content-around mx-0"></div>
+        <div class="record row text-center justify-content-around mx-0">
+            
+        </div>
     </div>
-      
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
