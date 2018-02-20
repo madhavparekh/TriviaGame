@@ -17,6 +17,8 @@ var round = 0; // # of games played
 $(document).ready(function(){
     $('#puzzle').hide();
     $('.alert').hide();
+    $('.record').hide();
+
     var queryURL = "";
     var indxNo = 0;
 
@@ -46,8 +48,11 @@ $(document).ready(function(){
                     
                     //show #puzzle div
                     $('#puzzle').show();
+                    $('.trivia').fadeTo('fast', 1.0);
+                    $('.trivia').show();
+                    $('.score').show();
                     
-                    setInt = setInterval(setTrivia(indxNo), timer, indxNo++)
+                    setInt = setInterval(setTrivia(), timer, indxNo++)
                 });
             }
         }
@@ -75,8 +80,8 @@ $(document).ready(function(){
         
     });
 
-    function setTrivia(i){
-        if(i < queArray.length){
+    function setTrivia(){
+        if(indxNo < queArray.length){
             //empty both div
             $('.choices').empty();
             $('.question-area').empty();
@@ -84,10 +89,13 @@ $(document).ready(function(){
             //convert 
             $('.score').find('#missed').html(missed);
             //push all answer choices into an array
-            var choices = pushChoicesIntoArray(queArray[i]);
+            var choices = pushChoicesIntoArray(queArray[indxNo]);
+
+            //display True or False if boolean que
+            var trueFalse = queArray[indxNo].type === 'boolean' ? 'True OR False: ' : ''
             
             //display que # and que in div .question-area
-            var que = $('<h4>').html('Question ' +(i + 1)+ ' : ' +queArray[i].question);
+            var que = $('<h4>').html('Question ' +(indxNo + 1)+ ': ' +trueFalse +queArray[indxNo].question);
             $('.question-area').append(que).append('<hr>');
     
             //create button for each choices and attach to .choices
@@ -106,21 +114,60 @@ $(document).ready(function(){
             //if round is over, reset everything, record scores, and start new game if btn clicked
             clearInterval(setInt);
             clearInterval(counter);
+            $('.record').show();
+            
+            if(correct< 11 )
+                $('#alertmsg').html('You suck at ' +cat +' trivia... ');
+            else
+                $('#alertmsg').html('You can do better at ' +cat +' trivia... ');
+            
+            addScoresToRecord();
             $('.alert').show();
             $('.trivia').fadeTo(500, 0.4); //fades out .trivia div when round complete
-            $('.alert').alert('Game Over! Press "Start Over" to play another game');
-            $('.recHeader').append('<h4>Round '+ ++round + ' : ' +cat + ' trivia </h4>');
-            $('.score').children().clone().appendTo('.record');
+                
 
         }
-    }
 
+        function addScoresToRecord(){
+            var recHeader = $('<div>').addClass('row text-center justify-content-around m-2');
+            recHeader.html('<h4>Round '+ ++round + ' : ' +cat + ' trivia </h4>');
+            var recScore = $('<div>').addClass('row text-center justify-content-around m-2');
+            $('.score').children().clone().appendTo(recScore);
+            $('.record').append(recHeader, recScore);
+
+        }
+
+        $('#playagain').on('click', function(){
+        
+            // reset scores, boolean, etc
+            catPicked = false;
+            missed = 0, correct = 0, wrong = 0, indxNo = 0;
+
+            //empty out divs for score/questions/clues
+            $('.question-area').empty();
+            $('.choices').empty();
+            $('#timeleft').html('15');
+            $('#missed').html('0');
+            $('#wrong').html('0');
+            $('#correct').html('0');
+
+            //hide .trivia .score .alert
+            $('.trivia').hide();
+            $('.score').hide();
+            $('.alert').hide();
+
+            //show cat. btn
+            $('#comp').show();
+            $('#videogame').show();
+
+        });
+    }
 
     function resetRestartTimer(){
         timeLeft = 15;
         clearInterval(setInt);
         clearInterval(counter);
-        setInt = setInterval(setTrivia(indxNo), timer, indxNo++);
+        setInt = setInterval(setTrivia(), timer, indxNo++);
     }
 
     function startTimer(){
