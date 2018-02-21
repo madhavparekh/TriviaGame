@@ -92,14 +92,15 @@ $(document).ready(function(){
             var choices = pushChoicesIntoArray(queArray[indxNo]);
 
             //display True or False if boolean que
-            var trueFalse = queArray[indxNo].type === 'boolean' ? 'True OR False: ' : ''
+            var trueFalse = queArray[indxNo].type === 'boolean' ? 'True OR False: ' : '';
+            //pad que # to display '00' format
+            var queNo = (indxNo + 1) < 10 ? '0' + (indxNo + 1) : (indxNo + 1);
             
             //display que # and que in div .question-area
-            var que = $('<h4>').html('Question ' +(indxNo + 1)+ ': ' +trueFalse +queArray[indxNo].question);
-            $('.question-area').append(que).append('<hr>');
+            var que = $('<h4>').html('Question ' +queNo + ': ' +trueFalse +'<br><br>' +queArray[indxNo].question);
+            $('.question-area').append(que, '<br>');
     
             //create button for each choices and attach to .choices
-            $('.choices').append('<h5>Here are your choices. Click one :</h5>');
             choices.forEach(e => {
                 var btn = $('<button>').addClass('btn btn-dark m-2 mx-3').html(e);
                 $('.choices').append(btn);
