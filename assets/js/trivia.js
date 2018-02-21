@@ -121,39 +121,40 @@ $(document).ready(function(){
             $('.alert').show();
             $('.trivia').fadeTo(500, 0.4); //fades out .trivia div when round complete
         }
-
-        function addScoresToRecord(){
-            var recHeader = $('<div>').addClass('row text-center justify-content-around m-2');
-            recHeader.html('<h4>Round '+ ++round + ' : ' +cat + ' trivia </h4>');
-            var recScore = $('<div>').addClass('row text-center justify-content-around m-2');
-            $('.score').children().clone().appendTo(recScore);
-            $('.record').append(recHeader, recScore);
-        }
-
-        $('#playagain').on('click', function(){
-            // reset scores, boolean, etc
-            catPicked = false;
-            missed = 0, correct = 0, wrong = 0, indxNo = 0;
-
-            //empty out divs for score/questions/clues
-            $('.question-area').empty();
-            $('.choices').empty();
-            $('#timeleft').html('15');
-            $('#missed').html('0');
-            $('#wrong').html('0');
-            $('#correct').html('0');
-
-            //hide .trivia .score .alert
-            $('.trivia').hide();
-            $('.score').hide();
-            $('.alert').hide();
-
-            //show cat. btn
-            $('#comp').show();
-            $('#videogame').show();
-
-        });
     }
+
+    function addScoresToRecord(){
+        var recHeader = $('<div>').addClass('row text-center justify-content-around m-2');
+        recHeader.html('<h4>Round '+ ++round + ' : ' +cat + ' trivia </h4>');
+        var recScore = $('<div>').addClass('row text-center justify-content-around m-2');
+        $('.score').children().clone().appendTo(recScore);
+        $('.record').append(recHeader, recScore);
+    }
+
+    $('#playagain').on('click', function(){
+        // reset scores, boolean, etc
+        catPicked = false;
+        missed = 0, correct = 0, wrong = 0, indxNo = 0;
+
+        //empty out divs for score/questions/clues
+        $('.question-area').empty();
+        $('.choices').empty();
+        $('#timeleft').html('15');
+        $('#missed').html('0');
+        $('#wrong').html('0');
+        $('#correct').html('0');
+
+        //hide .trivia .score .alert
+        $('.trivia').hide();
+        $('.score').hide();
+        $('.alert').hide();
+
+        //show cat. btn
+        $('#comp').show();
+        $('#videogame').show();
+
+    });
+    
 
     function resetRestartTimer(){
         timeLeft = 15;
@@ -175,19 +176,18 @@ $(document).ready(function(){
             }
         }, 1000);
     }
+
+    function pushChoicesIntoArray(que){
+        var ansChoices = [];
+        //converts HTML Char to special char and stores correct_answer into correctAns (global) push correct answer into array
+        correctAns = $('<div>').html(que.correct_answer).text();
+        ansChoices.push(que.correct_answer);
+        //push incorrect answers
+        var incAns = que.incorrect_answers;
+        incAns.forEach(e => {
+            ansChoices.push(e);
+        });
+        //suffle array so correct ans is not always the first and return
+        return ansChoices.sort(() => Math.random() - 0.5);
+    }
 });
-
-function pushChoicesIntoArray(que){
-    var ansChoices = [];
-    //converts HTML Char to special char and stores correct_answer into correctAns (global) push correct answer into array
-    correctAns = $('<div>').html(que.correct_answer).text();
-    ansChoices.push(que.correct_answer);
-    //push incorrect answers
-    var incAns = que.incorrect_answers;
-    incAns.forEach(e => {
-        ansChoices.push(e);
-    });
-    //suffle array so correct ans is not always the first and return
-    return ansChoices.sort(() => Math.random() - 0.5);
-}
-
