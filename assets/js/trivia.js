@@ -63,18 +63,20 @@ $(document).ready(function(){
 
     //listen on answer btn click
     $('.choices').on('click', '.btn', function(e){
-        var userChoice = $(this).text();
-        console.log('User Pick: ' +userChoice + ' ##Correct Ans: ' +correctAns);
-        
-        if(userChoice === correctAns){
-            correct++;
-            $('.score').find('#correct').html(correct);
+        if(indxNo <= queArray.length){
+            var userChoice = $(this).text();
+            console.log('User Pick: ' +userChoice + ' ##Correct Ans: ' +correctAns);
+            
+            if(userChoice === correctAns){
+                correct++;
+                $('.score').find('#correct').html(correct);
+            }
+            else{
+                wrong++;
+                $('.score').find('#wrong').html(wrong);
+            }
+            resetRestartTimer();
         }
-        else{
-            wrong++;
-            $('.score').find('#wrong').html(wrong);
-        }
-        resetRestartTimer();
     });
 
     function setTrivia(){
@@ -155,7 +157,6 @@ $(document).ready(function(){
 
     });
     
-
     function resetRestartTimer(){
         timeLeft = 15;
         clearInterval(setInt);
