@@ -172,6 +172,7 @@ $(document).ready(function(){
             if(timeLeft < 0){
                 missed++;
                 timeLeft = 15;
+                $('#timeleft').html('15');
                 clearInterval(counter);
                 resetRestartTimer();
             }
