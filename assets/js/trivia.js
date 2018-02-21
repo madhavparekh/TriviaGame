@@ -64,7 +64,6 @@ $(document).ready(function(){
     //listen on answer btn click
     $('.choices').on('click', '.btn', function(e){
         var userChoice = $(this).text();
-
         console.log('User Pick: ' +userChoice + ' ##Correct Ans: ' +correctAns);
         
         if(userChoice === correctAns){
@@ -75,9 +74,7 @@ $(document).ready(function(){
             wrong++;
             $('.score').find('#wrong').html(wrong);
         }
-
         resetRestartTimer();
-        
     });
 
     function setTrivia(){
@@ -85,6 +82,7 @@ $(document).ready(function(){
             //empty both div
             $('.choices').empty();
             $('.question-area').empty();
+            $('#timeleft').html('15');
 
             //convert 
             $('.score').find('#missed').html(missed);
@@ -107,8 +105,6 @@ $(document).ready(function(){
             });
 
             startTimer();
-            //indxNo++;
-
         }
         else{
             //if round is over, reset everything, record scores, and start new game if btn clicked
@@ -116,16 +112,14 @@ $(document).ready(function(){
             clearInterval(counter);
             $('.record').show();
             
-            if(correct< 11 )
-                $('#alertmsg').html('You suck at ' +cat +' trivia... ');
+            if(correct< 11)
+                $('#alertmsg').html('Wow! You suck at ' +cat +' trivia... ');
             else
-                $('#alertmsg').html('You can do better at ' +cat +' trivia... ');
+                $('#alertmsg').html('Good going! Now let\'s see if you can do better at ' +cat +' trivia... ');
             
             addScoresToRecord();
             $('.alert').show();
             $('.trivia').fadeTo(500, 0.4); //fades out .trivia div when round complete
-                
-
         }
 
         function addScoresToRecord(){
@@ -134,11 +128,9 @@ $(document).ready(function(){
             var recScore = $('<div>').addClass('row text-center justify-content-around m-2');
             $('.score').children().clone().appendTo(recScore);
             $('.record').append(recHeader, recScore);
-
         }
 
         $('#playagain').on('click', function(){
-        
             // reset scores, boolean, etc
             catPicked = false;
             missed = 0, correct = 0, wrong = 0, indxNo = 0;
@@ -171,11 +163,10 @@ $(document).ready(function(){
     }
 
     function startTimer(){
-        
         counter = setInterval(function(){
+            timeLeft--;
             var paddedTimeLeft = timeLeft < 10 ? '0'+ timeLeft : timeLeft;
             $('#timeleft').html(paddedTimeLeft);
-            timeLeft--;
             if(timeLeft < 0){
                 missed++;
                 timeLeft = 15;
@@ -183,9 +174,7 @@ $(document).ready(function(){
                 resetRestartTimer();
             }
         }, 1000);
-        
     }
-
 });
 
 function pushChoicesIntoArray(que){
@@ -195,13 +184,10 @@ function pushChoicesIntoArray(que){
     ansChoices.push(que.correct_answer);
     //push incorrect answers
     var incAns = que.incorrect_answers;
-
     incAns.forEach(e => {
         ansChoices.push(e);
     });
-    
     //suffle array so correct ans is not always the first and return
     return ansChoices.sort(() => Math.random() - 0.5);
-
 }
 
