@@ -43,6 +43,18 @@ strong{
     right: 0;
 }
 
-/* .question-area, .choices {
+.question-area, .choices {
     height: 160px;
-} */
+}
+
+@media only screen and (max-width: 768px) {
+    .question-area, .choices {
+        height: 210px;
+    }    
+}
+
+@media only screen and (max-width: 576px) {
+    .question-area, .choices {
+        height: 240px;
+    }    
+}
